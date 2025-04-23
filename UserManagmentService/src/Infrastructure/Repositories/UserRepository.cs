@@ -9,6 +9,7 @@ public class UserRepository : IUserRepository
 {
     private readonly UserManagmentDbContext _context;
     public UserRepository(UserManagmentDbContext context) => _context = context;
+    
     public Task<User> CreateUser(UserCreateDTO userCreateDTO)
     {
         throw new NotImplementedException();
