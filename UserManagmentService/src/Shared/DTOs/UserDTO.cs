@@ -1,6 +1,6 @@
 using Shared.Enums;
 
-namespace Shared.DTOs.UserDTOs;
+namespace Shared.DTOs;
 
 public record class UserDTO(
     string UserName,

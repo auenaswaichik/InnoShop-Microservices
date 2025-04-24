@@ -1,12 +1,11 @@
 using Domain.Entities;
-using Shared.DTOs.UserDTOs;
+using Shared.DTOs;
 
 namespace Application.IServices;
 
 public interface IUserService {
     public Task<List<UserDTO>> GetAll();
-    public Task<UserDTO> GetById();
+    public Task<UserDTO> GetById(Guid id);
     public Task RemoveUser(Guid id);
-    public Task<User> UpdateUser(Guid id, UserUpdateDTO userUpdateDTO);
-    public Task<User> CreateUser(UserCreateDTO userCreateDTO);
+    public Task<UserDTO> UpdateUser(Guid id, UpdateUserDTO updateUser);
 }

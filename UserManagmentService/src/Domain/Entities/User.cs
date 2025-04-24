@@ -11,7 +11,6 @@ public class User {
     public string? UserEmail {get; set;}
     public string? PasswordHash {get; set;}
     public Role UserRole {get; set;}
-    public bool IsActive {get; set;}
     public DateTime CreatedAt {get; set;}
     public DateTime LastLogin {get; set;}
 
