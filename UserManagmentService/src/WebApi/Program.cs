@@ -37,7 +37,6 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
     options.AddPolicy("RequireClientRole", policy => policy.RequireRole("Client"));
-    options.AddPolicy("RequireGuestRole", policy => policy.RequireRole("Guest"));
 });
 
 builder.Services.AddControllers();
