@@ -10,9 +10,13 @@ using Microsoft.IdentityModel.Tokens;
 using Application.IRepositories;
 using Infrastrucure.Repositories;
 
-Env.Load();
-
 var builder = WebApplication.CreateBuilder(args);
+
+var envConfig = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.env.json", optional: false, reloadOnChange: true)
+    .Build();
+builder.Configuration.AddConfiguration(envConfig);
 
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
@@ -27,9 +31,9 @@ builder.Services.AddAuthentication(options => {
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = Environment.GetEnvironmentVariable("ISSUER"),
-        ValidAudience = Environment.GetEnvironmentVariable("AUDIENCE"),
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("KEY")))
+        ValidIssuer = builder.Configuration["Jwt:Issuer"] ,
+        ValidAudience = builder.Configuration["Jwt:Audience"] ,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ))
     };
 });
 
@@ -41,10 +45,14 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<UserManagmentDbContext>(options =>
-    options.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_CONFIGURATIONS"))    
-);
 
+builder.Services.AddDbContext<UserManagmentDbContext>(options =>
+    options.UseNpgsql($"Host={builder.Configuration["Database:Host"]};" +
+                     $"Port={builder.Configuration["Database:Port"]};" +
+                     $"Database={builder.Configuration["Database:Name"]};" +
+                     $"Username={builder.Configuration["Database:Username"]};" +
+                     $"Password={builder.Configuration["Database:Password"]}")    
+);
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -56,6 +64,9 @@ builder.Services.AddAutoMapper(
 );
 
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {

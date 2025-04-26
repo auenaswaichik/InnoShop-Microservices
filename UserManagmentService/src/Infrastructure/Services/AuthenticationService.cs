@@ -7,14 +7,18 @@ using DotNetEnv;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
 
 namespace Infrastrucure.Services;
 
 public class AuthenticationService : IAuthenticationService
 {
     private readonly IUserRepository _repository;
-    public AuthenticationService(IUserRepository repository) =>
+    private readonly IConfiguration _configuration;
+    public AuthenticationService(IUserRepository repository, IConfiguration configuration) {
         _repository = repository;
+        _configuration = configuration;
+    }
     public async Task<string> AuthenticateUser(LoginUserDTO loginUser)
     {
         Env.Load();
@@ -23,7 +27,7 @@ public class AuthenticationService : IAuthenticationService
             return null;
 
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("KEY"));
+        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
         var tokenDescriptor = new SecurityTokenDescriptor {
 
             Subject = new ClaimsIdentity(new Claim[]{
@@ -35,8 +39,8 @@ public class AuthenticationService : IAuthenticationService
             }),
 
             Expires = DateTime.UtcNow.AddHours(2),
-            Issuer = Environment.GetEnvironmentVariable("ISSUER"),
-            Audience = Environment.GetEnvironmentVariable("AUDIENCE"),
+            Issuer = _configuration["Jwt:Issuer"],
+            Audience = _configuration["Jwt:Audience"],
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
 
         };
