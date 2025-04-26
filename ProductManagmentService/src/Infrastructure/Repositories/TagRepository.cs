@@ -14,7 +14,7 @@ public class TagRepository : ITagRepository
     {
         await _context.Tags   
             .AddAsync(tag);
-        return tag;
+        return await _context.Tags.FirstOrDefaultAsync(m => m.TagName == tag.TagName);
     }
 
     public async Task<List<Tag>> GetAll()
