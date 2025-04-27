@@ -42,7 +42,7 @@ public class ProductController : ControllerBase {
     public async Task<ProductDTO> GetById(Guid id) {
         return await _service.GetById(id);
     }
-    [HttpGet("{id:guid}/tags")]
+    [HttpGet("{id:guid}/tag")]
     [AllowAnonymous]
     public async Task<List<TagDTO>> GetAllTags(Guid id) {
         return await _service.GetAllTags(id);
