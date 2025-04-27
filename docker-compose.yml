@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres_user:
+    image: postgres:latest
+    container_name: innoshop_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: user_db
+    ports:
+      - "5431:5431"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - innoshop_network
+
+  postgres_product:
+    image: postgres:latest
+    container_name: innoshop_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: product_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - innoshop_network
+
+  product-service:
+    build:
+      context: ./UserManagmentService/src
+      dockerfile: Dockerfile
+    container_name: user_service
+    depends_on:
+      - postgres_product
+    ports:
+      - "3000:80"
+    networks:
+      - innoshop_network
+
+  user-service:
+    build:
+      context: ./UserManagmentService/src
+      dockerfile: Dockerfile
+    container_name: user_service
+    depends_on:
+      - postgres_user
+    ports:
+      - "3001:80"
+    networks:
+      - innoshop_network
+
+  api-gateway:
+    build:
+      context: ./ApiGateway
+      dockerfile: Dockerfile
+    container_name: api_gateway
+    depends_on:
+      - product-service
+      - user-service
+    ports:
+      - "3000:80"
+    networks:
+      - innoshop_network
+
+volumes:
+  postgres_data:
+
+networks:
+  innoshop_network:
+    driver: bridge
