@@ -29,6 +29,13 @@ public class ProductRepository : IProductRepository
             .FirstOrDefaultAsync(m => m.ProductId == id);
     }
 
+    public async Task<List<Product>> GetByTag(Tag tag)
+    {
+        return await (from product in _context.Products
+                        where product.Tags.Contains(tag)
+                        select product).ToListAsync();
+    }
+
     public async Task RemoveProduct(Guid id)
     {
         _context.Products

@@ -19,7 +19,12 @@ public class UserController : ControllerBase {
     [Authorize(Policy = "RequireAdminRole")]
     public async Task<ActionResult> DeleteUser(Guid id) {
 
-        await _service.RemoveUser(id);
+        try {
+            await _service.RemoveUser(id);
+        }
+        catch(Exception ex) {
+            throw new Exception("deleting user were unsuccesfull");
+        }
         return Ok("User was seccesfully removed");
 
     }
@@ -27,7 +32,12 @@ public class UserController : ControllerBase {
     [Authorize(Policy = "RequireAdminRole")]
     [Authorize(Policy = "RequireClientRole")]
     public async Task<ActionResult> UpdateUser([FromBody] UpdateUserDTO updateUser, Guid id) {
-        var userDTO = await _service.UpdateUser(id, updateUser);
-        return Ok("User was succesfully updated: " + userDTO);
+        try {
+            var userDTO = await _service.UpdateUser(id, updateUser);
+            return Ok("User was succesfully updated: " + userDTO);
+        }
+        catch(Exception ex) {
+            throw new Exception("deleting user were unsuccesfull");
+        }
     }
 }

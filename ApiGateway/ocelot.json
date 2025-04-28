@@ -98,6 +98,18 @@
             "Port": 3002
         }
       ]
+    },
+    {
+      "UpstreamPathTemplate": "/product/bytag",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/product/bytag",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+            "Host": "localhost",
+            "Port": 3002
+        }
+      ]
     }
   ]
 }

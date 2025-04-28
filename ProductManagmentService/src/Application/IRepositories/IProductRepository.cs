@@ -8,4 +8,5 @@ public interface IProductRepository {
     public Task RemoveProduct(Guid id);
     public Task<Product> UpdateProduct(Guid id, Product product);
     public Task<Product> CreateProduct(Product product);
+    public Task<List<Product>> GetByTag(Tag tag);
 }

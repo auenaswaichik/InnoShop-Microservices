@@ -15,26 +15,51 @@ public class TagController : ControllerBase {
     [HttpPost]
     [Authorize(Policy = "RequireAdminRole")]
     public async Task<TagDTO> CreateTag([FromBody] TagDTO tagDTO) {
-        return await _service.CreateTag(tagDTO);
+        try {
+            return await _service.CreateTag(tagDTO);
+        }
+        catch (Exception ex) {
+            throw new Exception("creating tag was unsuccesfull");
+        }
     }
     [HttpPut("{id:guid}")]
     [Authorize(Policy = "RequireAdminRole")]
     public async Task<TagDTO> UpdateTag([FromBody] TagDTO tagDTO, Guid id) {
-        return await _service.UpdateTag(id, tagDTO);
+        try {
+            return await _service.UpdateTag(id, tagDTO);
+        }
+        catch (Exception ex) {
+            throw new Exception("updating tag was unsuccesfull");
+        }
     }
     [HttpDelete("{id:guid}")]
     [Authorize(Policy = "RequireAdminRole")]
     public async Task DeleteTag(Guid id) {
-        await _service.RemoveTag(id);
+        try {
+            await _service.RemoveTag(id);
+        }
+        catch (Exception ex) {
+            throw new Exception("removing tag was unsuccesfull");
+        }
     }
     [HttpGet]
     [AllowAnonymous]
     public async Task<List<TagDTO>> GetAll() {
-        return await _service.GetAll();
+        try {
+            return await _service.GetAll();
+        }
+        catch (Exception ex) {
+            throw new Exception("getting all tags was unsuccesfull");
+        }
     }
     [HttpGet("{id:guid}")]
     [AllowAnonymous]
     public async Task<TagDTO> GetById(Guid id) {
-        return await _service.GetById(id);
+        try {
+            return await _service.GetById(id);
+        }
+        catch (Exception ex) {
+            throw new Exception("getting tag was unsuccesfull");
+        }
     }
 }

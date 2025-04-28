@@ -11,4 +11,5 @@ public interface IProductService {
     public Task<TagDTO> AddTagToProduct(Guid clientId, Guid productId, Guid tagId);
     public Task<List<TagDTO>> GetAllTags(Guid productId);
     public Task RemoveTag(Guid clientId, Guid productId, Guid tagId);
+    public Task<List<ProductDTO>> GetByTag(Guid tagId);
 }

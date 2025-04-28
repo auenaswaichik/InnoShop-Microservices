@@ -58,6 +58,12 @@ public class ProductService : IProductService
         return _mapper.Map<ProductDTO>(product);
     }
 
+    public async Task<List<ProductDTO>> GetByTag(Guid tagId)
+    {
+        var products = await _repository.ProductRepository.GetByTag(await _repository.TagRepository.GetById(tagId));
+        return _mapper.Map<List<ProductDTO>>(products);   
+    }
+
     public async Task RemoveProduct(Guid clientId, Guid productId)
     {
         var product = await _repository.ProductRepository.GetById(productId);
