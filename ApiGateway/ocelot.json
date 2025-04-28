@@ -6,8 +6,8 @@
     {
       "UpstreamPathTemplate": "/login",
       "UpstreamHttpMethod": [ "Post" ],
-      "DownstreamPathTemplate": "api/auth/login",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/auth/login",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
             "Host": "localhost",
@@ -18,8 +18,8 @@
     {
       "UpstreamPathTemplate": "/register",
       "UpstreamHttpMethod": [ "Post" ],
-      "DownstreamPathTemplate": "api/auth/register",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/auth/register",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
             "Host": "localhost",
@@ -30,7 +30,7 @@
     {
       "UpstreamPathTemplate": "/user/{id}",
       "UpstreamHttpMethod": [ "Put", "Delete" ],
-      "DownstreamPathTemplate": "api/user/{id}",
+      "DownstreamPathTemplate": "/api/user/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -42,8 +42,8 @@
     {
       "UpstreamPathTemplate": "/product",
       "UpstreamHttpMethod": [ "Post", "Get" ],
-      "DownstreamPathTemplate": "api/product",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/product",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
             "Host": "localhost",
@@ -54,8 +54,8 @@
     {
       "UpstreamPathTemplate": "/product/{id}",
       "UpstreamHttpMethod": [ "Put", "Get", "Delete" ],
-      "DownstreamPathTemplate": "api/product/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/product/{id}",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
             "Host": "localhost",
@@ -66,8 +66,8 @@
     {
       "UpstreamPathTemplate": "/product/{id}/tag",
       "UpstreamHttpMethod": [ "Post", "Get", "Delete" ],
-      "DownstreamPathTemplate": "api/product/{id}/tag",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/product/{id}/tag",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
             "Host": "localhost",
@@ -78,8 +78,8 @@
     {
       "UpstreamPathTemplate": "/tag",
       "UpstreamHttpMethod": [ "Post", "Get" ],
-      "DownstreamPathTemplate": "api/tag",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/tag",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
             "Host": "localhost",
@@ -90,8 +90,8 @@
     {
       "UpstreamPathTemplate": "/tag/{id}",
       "UpstreamHttpMethod": [ "Put", "Get", "Delete" ],
-      "DownstreamPathTemplate": "api/tag/{id}   ",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/tag/{id}   ",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
             "Host": "localhost",

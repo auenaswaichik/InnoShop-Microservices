@@ -1,28 +1,13 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
-  postgres_user:
+  postgres:
     image: postgres:latest
     container_name: innoshop_postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: user_db
-    ports:
-      - "5431:5431"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - innoshop_network
-
-  postgres_product:
-    image: postgres:latest
-    container_name: innoshop_postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: product_db
+      POSTGRES_DB: db
     ports:
       - "5432:5432"
     volumes:
@@ -32,13 +17,13 @@ services:
 
   product-service:
     build:
-      context: ./UserManagmentService/src
+      context: ./ProductManagmentService/src
       dockerfile: Dockerfile
-    container_name: user_service
+    container_name: product_service
     depends_on:
-      - postgres_product
+      - postgres
     ports:
-      - "3000:80"
+      - "3002:8080"
     networks:
       - innoshop_network
 
@@ -48,9 +33,9 @@ services:
       dockerfile: Dockerfile
     container_name: user_service
     depends_on:
-      - postgres_user
+      - postgres
     ports:
-      - "3001:80"
+      - "3001:8080"
     networks:
       - innoshop_network
 
@@ -63,7 +48,7 @@ services:
       - product-service
       - user-service
     ports:
-      - "3000:80"
+      - "3000:8080"
     networks:
       - innoshop_network
 
