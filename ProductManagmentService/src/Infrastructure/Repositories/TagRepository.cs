@@ -12,14 +12,14 @@ public class TagRepository : ITagRepository
         _context = context;
     public async Task<Tag> CreateTag(Tag tag)
     {
-        await _context.Tags   
-            .AddAsync(tag);
-        return await _context.Tags.FirstOrDefaultAsync(m => m.TagName == tag.TagName);
+        await _context.Tags.AddAsync(tag);
+        return tag;
     }
 
     public async Task<List<Tag>> GetAll()
     {
         return await _context.Tags
+            .Include(m => m.Products)
             .ToListAsync();
     }
 
@@ -39,11 +39,11 @@ public class TagRepository : ITagRepository
 
     public async Task<Tag> UpdateTag(Guid id, Tag tag)
     {
-        var tempEntry = await GetById(id);
-        _context.Tags
-            .Entry(tag)
-            .CurrentValues
-            .SetValues(tag);
-        return tag;
+        var existingTag = await GetById(id);
+        if (existingTag == null)
+            return null;
+
+        existingTag.TagName = tag.TagName;
+        return existingTag;
     }
 }

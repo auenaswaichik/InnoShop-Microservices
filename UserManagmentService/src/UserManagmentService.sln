@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{A98316FF-CEC3-4AD6-AD08-3C80C8E02BBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagementServiceTests", "..\test\UserManagementServiceTests.csproj", "{F33E9E6B-481B-452D-B527-891F9CE44B25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{A98316FF-CEC3-4AD6-AD08-3C80C8E02BBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A98316FF-CEC3-4AD6-AD08-3C80C8E02BBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A98316FF-CEC3-4AD6-AD08-3C80C8E02BBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F33E9E6B-481B-452D-B527-891F9CE44B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F33E9E6B-481B-452D-B527-891F9CE44B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F33E9E6B-481B-452D-B527-891F9CE44B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F33E9E6B-481B-452D-B527-891F9CE44B25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

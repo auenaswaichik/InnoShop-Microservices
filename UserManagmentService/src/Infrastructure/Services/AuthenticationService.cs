@@ -3,6 +3,7 @@ using Application.IRepositories;
 using Application.IServices;
 using Domain.Entities;
 using Shared.DTOs;
+using Shared.Enums;
 using DotNetEnv;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
@@ -33,12 +34,12 @@ public class AuthenticationService : IAuthenticationService
             Subject = new ClaimsIdentity(new Claim[]{
 
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Role, Enum.GetName(typeof (Shared.Enums.Role), user.UserRole)),
+                new Claim(ClaimTypes.Role, user.UserRole is Shared.Enums.Role.Admin ? "Admin" : "Client"),
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
 
             }),
 
-            Expires = DateTime.UtcNow.AddHours(2),
+            Expires = DateTime.Now.AddHours(2),
             Issuer = _configuration["Jwt:Issuer"],
             Audience = _configuration["Jwt:Audience"],
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

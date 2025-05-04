@@ -20,6 +20,7 @@ public class ProductRepository : IProductRepository
     public async Task<List<Product>> GetAll()
     {
         return await _context.Products
+            .Include(m => m.Tags)
             .ToListAsync();
     }
 
